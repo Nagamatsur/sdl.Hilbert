@@ -9,6 +9,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private final static int MAX_ORDER = 9;
+    private final static String KEY_NAME = "MainActivity.order";
     private int order = 1;
 
     private TextView orderView;
@@ -42,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
                 display();
             }
         });
+        if(savedInstanceState!= null){
+            order = savedInstanceState.getInt(KEY_NAME);
+        }
     }
 
     @Override
@@ -55,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
         hilbertView.setOrder(order);
         decButton.setEnabled(order > 1);
         incButton.setEnabled(order < MAX_ORDER);
+    }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_NAME,order);
     }
 
     public static void assertTrue(boolean f, String message) {
